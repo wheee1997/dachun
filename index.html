@@ -206,8 +206,8 @@ function buildMain(){
       const input=document.createElement("input");
       input.type="number";
       input.min="0";
-      input.step="1";
-      input.inputMode="numeric";
+      input.step="any";
+      input.inputMode="decimal";
       input.placeholder="0";
       input.id=`item_${i}_${j}`;
       input.addEventListener("input",()=>{
