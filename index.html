@@ -80,6 +80,10 @@
 <div class="wrap">
   <h1 id="pageTitle">庫存統計</h1>
 
+  <div class="actions" style="margin-bottom:14px">
+  <button class="secondary" id="clearValuesBtn">清除資料</button>
+</div>
+  
   <section class="card">
     <h2>商品庫存</h2>
     <div id="inventory"></div>
@@ -93,7 +97,6 @@
   <section class="card">
     <div class="actions">
       <button class="primary" id="copyBtn">複製文字</button>
-      <button class="secondary" id="clearValuesBtn">清除數量</button>
     </div>
     <div class="msg" id="msg"></div>
     <div class="note">庫存數字、溫度與自訂設定都只會保存在這台裝置的瀏覽器。</div>
@@ -503,7 +506,6 @@ function resetConfig(){
   if(!confirm("確定恢復預設品項與位置設定嗎？目前庫存數字也會清除。"))return;
   config=deepCopy(DEFAULT_CONFIG);
   localStorage.removeItem(CONFIG_KEY);
-  localStorage.removeItem(VALUES_KEY);
   buildMain();
   buildConfigEditor();
   showMsg("已恢復預設設定。");
