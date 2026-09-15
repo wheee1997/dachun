@@ -62,7 +62,7 @@
 
     /* 品項名稱加大 */
     .name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1.2;
     }
@@ -359,7 +359,7 @@ const DEFAULT_CONFIG = {
       locations: [
         "前面 選料冰箱 上面",
         "小白板",
-        "後面 廚房冰箱"
+        "後面 水冰箱"
       ]
     },
     {
@@ -842,8 +842,7 @@ function makeCopyText() {
   );
 
 
-  return lines.join("
-");
+  return lines.join("\n");
 }
 
 
@@ -882,11 +881,7 @@ async function copyText() {
 
 function clearValues() {
   const yes =
-    confirm(
-      "確定要清除所有庫存數量與冰箱溫度嗎？
-
-品項名稱與位置設定不會被刪除。"
-    );
+    confirm("確定要清除所有庫存數量與冰箱溫度嗎？\n\n品項名稱與位置設定不會被刪除。");
 
 
   if (!yes) {
@@ -1357,11 +1352,7 @@ function addFridge() {
 
 function resetConfig() {
   const yes =
-    confirm(
-      "確定要恢復預設設定嗎？
-
-品項、位置、數量與溫度都會恢復。"
-    );
+    confirm("確定要恢復預設設定嗎？\n\n品項、位置、數量與溫度都會恢復。");
 
 
   if (!yes) {
