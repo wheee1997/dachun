@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="zh-Hant">
+
 <head>
+
   <meta charset="utf-8">
 
   <meta
@@ -11,6 +13,7 @@
   <title>庫存統計</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -34,43 +37,57 @@
       width: 100%;
       max-width: 430px;
       margin: 0 auto;
-      padding: 8px 8px 25px;
+      padding: 7px 7px 25px;
     }
 
     h1 {
-      margin: 4px 0 8px;
-      font-size: 21px;
+      margin: 3px 0 7px;
+      font-size: 20px;
     }
 
     h2 {
-      margin: 0 0 7px;
-      font-size: 16px;
+      margin: 0 0 6px;
+      font-size: 15px;
     }
 
     .card {
-      background: #ffffff;
+      background: white;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border-radius: 11px;
 
-      padding: 9px;
-      margin-bottom: 8px;
+      padding: 8px;
+      margin-bottom: 7px;
 
       box-shadow: 0 2px 8px rgba(0,0,0,.03);
     }
 
-    .top-actions {
+
+    /* =========================
+       按鈕
+       ========================= */
+
+    .top-actions,
+    .actions {
       display: flex;
       gap: 6px;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .top-actions {
+      margin-bottom: 7px;
     }
 
     button {
       border: 0;
-      border-radius: 9px;
-      min-height: 36px;
+      border-radius: 8px;
+
+      min-height: 35px;
+
       padding: 6px 10px;
+
       font-size: 13px;
       font-weight: 700;
+
       cursor: pointer;
     }
 
@@ -95,17 +112,30 @@
     }
 
     .small {
-      min-height: 34px;
+      min-height: 32px;
       padding: 5px 8px;
-      font-size: 12px;
+      font-size: 11px;
     }
+
+
+    /* =========================
+       商品庫存
+       ========================= */
 
     .item {
       display: grid;
-      grid-template-columns: 72px 1fr 48px;
-      gap: 5px;
+
+      grid-template-columns:
+        68px
+        1fr
+        45px;
+
+      gap: 4px;
+
       align-items: center;
-      padding: 6px 0;
+
+      padding: 4px 0;
+
       border-bottom: 1px solid #eef0f2;
     }
 
@@ -114,46 +144,73 @@
     }
 
     .name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+
+      line-height: 1.2;
     }
 
     .inputs {
       display: flex;
+
       gap: 4px;
+
       flex-wrap: nowrap;
-      align-items: center;
+
+      align-items: flex-end;
+
       min-width: 0;
     }
 
+
+    /* 每個位置大小一致 */
+
     .slot {
-      width: 52px;
-      flex: 0 0 52px;
+      width: 58px;
+      flex: 0 0 58px;
+
       display: flex;
       flex-direction: column;
+
       align-items: center;
+
       gap: 2px;
     }
 
+
+    /* 位置名稱 */
+
     .slot span {
-      width: 52px;
-      font-size: 10px;
-      line-height: 1.2;
-      color: #6b7280;
+      width: 58px;
+
+      min-height: 23px;
+
+      display: flex;
+
+      align-items: flex-end;
+      justify-content: center;
+
       text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+
+      font-size: 9px;
+      line-height: 1.1;
+
+      color: #6b7280;
+
+      white-space: normal;
+
+      overflow-wrap: anywhere;
     }
+
 
     input[type="number"],
     input[type="text"] {
       border: 1px solid #cfd4dc;
-      border-radius: 8px;
-      background: #ffffff;
+
+      border-radius: 7px;
+
+      background: white;
+
       color: #111827;
     }
 
@@ -162,27 +219,50 @@
       border-color: #2563eb;
     }
 
+
+    /* 數量框 */
+
     .slot input[type="number"] {
-      width: 52px;
-      height: 34px;
-      padding: 3px;
+      width: 58px;
+      height: 32px;
+
+      padding: 2px;
+
       text-align: center;
-      font-size: 16px;
+
+      font-size: 15px;
     }
+
+
+    /* 合計 */
 
     .total {
       text-align: right;
-      font-size: 16px;
+
+      font-size: 15px;
       font-weight: 800;
+
       white-space: nowrap;
     }
 
+
+    /* =========================
+       冰箱溫度
+       ========================= */
+
     .temp-row {
       display: grid;
-      grid-template-columns: 1fr 78px;
+
+      grid-template-columns:
+        1fr
+        75px;
+
       gap: 5px;
+
       align-items: center;
-      padding: 6px 0;
+
+      padding: 5px 0;
+
       border-bottom: 1px solid #eef0f2;
     }
 
@@ -196,157 +276,199 @@
 
     .fridge-title-line {
       display: flex;
+
       align-items: baseline;
+
       flex-wrap: wrap;
+
       gap: 3px;
+
       line-height: 1.2;
     }
 
     .fridge-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .fridge-note-inline {
-      font-size: 10px;
+      font-size: 9px;
+
       color: #6b7280;
+
       font-weight: 400;
-      white-space: nowrap;
     }
 
     .fridge-note-stack {
       display: flex;
+
       flex-direction: column;
+
       gap: 1px;
+
       margin-top: 2px;
-      font-size: 10px;
+
+      font-size: 9px;
       line-height: 1.25;
+
       color: #6b7280;
     }
 
     .temp-input {
       display: flex;
-      align-items: center;
+
       justify-content: flex-end;
-      gap: 3px;
+      align-items: center;
+
+      gap: 2px;
     }
 
     .temp-input input {
-      width: 57px;
-      height: 34px;
-      padding: 3px;
-      font-size: 15px;
+      width: 55px;
+      height: 32px;
+
+      padding: 2px;
+
       text-align: center;
+
+      font-size: 14px;
     }
 
     .temp-input span {
-      font-size: 12px;
+      font-size: 11px;
     }
 
+
+    /* =========================
+       提示
+       ========================= */
+
     .msg {
-      margin-top: 6px;
-      min-height: 16px;
+      min-height: 15px;
+
+      margin-top: 5px;
+
+      font-size: 11px;
+
       color: #047857;
-      font-size: 12px;
     }
 
     .note {
+      margin-top: 5px;
+
       color: #6b7280;
-      font-size: 11px;
-      margin-top: 6px;
+
+      font-size: 10px;
+
+      line-height: 1.4;
     }
+
+
+    /* =========================
+       編輯設定
+       ========================= */
 
     details summary {
       cursor: pointer;
-      font-size: 15px;
+
+      font-size: 14px;
       font-weight: 800;
     }
 
     .config {
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .config-item {
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 9px;
-      margin-bottom: 8px;
       background: #fafafa;
-    }
 
-    .config-top {
-      display: flex;
-      gap: 6px;
-      align-items: center;
+      border: 1px solid #e5e7eb;
+
+      border-radius: 9px;
+
+      padding: 8px;
+
       margin-bottom: 7px;
     }
 
-    .config-top input {
+    .config-top,
+    .loc-row,
+    .fridge-config {
+      display: flex;
+
+      gap: 5px;
+
+      align-items: center;
+    }
+
+    .config-top {
+      margin-bottom: 6px;
+    }
+
+    .config-top input,
+    .loc-row input,
+    .fridge-config input {
       flex: 1;
+
       min-width: 0;
-      height: 36px;
-      padding: 5px 7px;
+
+      height: 34px;
+
+      padding: 4px 6px;
+
+      font-size: 13px;
     }
 
     .loc-list {
       display: flex;
+
       flex-direction: column;
-      gap: 6px;
-    }
 
-    .loc-row {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .loc-row input {
-      flex: 1;
-      min-width: 0;
-      height: 36px;
-      padding: 5px 7px;
+      gap: 5px;
     }
 
     .fridge-config {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .fridge-config input {
-      flex: 1;
-      min-width: 0;
-      height: 36px;
-      padding: 5px 7px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
+      margin-bottom: 5px;
     }
 
     #titleInput {
       width: 100%;
-      height: 36px;
-      margin-top: 5px;
-      padding: 5px 7px;
+
+      height: 34px;
+
+      margin-top: 4px;
+
+      padding: 4px 6px;
     }
 
-    @media (max-width: 360px) {
+
+    /* =========================
+       小手機
+       ========================= */
+
+    @media (max-width: 370px) {
 
       .wrap {
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+      .card {
+        padding-left: 6px;
+        padding-right: 6px;
       }
 
       .item {
-        grid-template-columns: 66px 1fr 43px;
+        grid-template-columns:
+          62px
+          1fr
+          40px;
+
         gap: 3px;
       }
 
       .name {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       .inputs {
@@ -354,44 +476,50 @@
       }
 
       .slot {
-        width: 47px;
-        flex-basis: 47px;
+        width: 51px;
+        flex-basis: 51px;
       }
 
       .slot span {
-        width: 47px;
-        font-size: 9px;
+        width: 51px;
+        font-size: 8px;
       }
 
       .slot input[type="number"] {
-        width: 47px;
+        width: 51px;
       }
 
       .total {
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .fridge-name {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       .fridge-note-inline,
       .fridge-note-stack {
-        font-size: 9px;
+        font-size: 8px;
       }
 
     }
 
   </style>
+
 </head>
+
 
 <body>
 
 <div class="wrap">
 
+
   <h1 id="pageTitle">
     庫存統計
   </h1>
+
+
+  <!-- 上方按鈕 -->
 
   <div class="top-actions">
 
@@ -411,6 +539,9 @@
 
   </div>
 
+
+  <!-- 商品庫存 -->
+
   <section class="card">
 
     <h2>
@@ -420,6 +551,9 @@
     <div id="inventory"></div>
 
   </section>
+
+
+  <!-- 冰箱溫度 -->
 
   <section class="card">
 
@@ -431,10 +565,14 @@
 
   </section>
 
+
   <div
     class="msg"
     id="msg"
   ></div>
+
+
+  <!-- 編輯設定 -->
 
   <section class="card">
 
@@ -444,21 +582,26 @@
         編輯品項與位置名稱
       </summary>
 
+
       <div class="config">
+
 
         <div class="note">
 
-          可以修改品項名稱、位置名稱，例如：
-          小冰箱、後冰箱、前冰箱，也可以增加或刪除位置。
+          可以修改品項名稱、位置名稱，
+          也可以增加或刪除位置。
 
         </div>
 
-        <div style="margin-top:12px;margin-bottom:12px">
 
-          <label style="font-weight:700;font-size:13px">
+        <!-- 網頁名稱 -->
 
+        <div style="margin-top:10px;margin-bottom:10px">
+
+          <label
+            style="font-weight:700;font-size:12px"
+          >
             網頁標題
-
           </label>
 
           <input
@@ -468,11 +611,15 @@
 
         </div>
 
+
+        <!-- 商品設定 -->
+
         <div id="configItems"></div>
+
 
         <div
           class="actions"
-          style="margin:10px 0 16px"
+          style="margin:8px 0 14px"
         >
 
           <button
@@ -484,17 +631,20 @@
 
         </div>
 
-        <h2 style="font-size:15px">
 
+        <!-- 冰箱名稱 -->
+
+        <h2>
           冰箱名稱
-
         </h2>
+
 
         <div id="fridgeConfig"></div>
 
+
         <div
           class="actions"
-          style="margin-bottom:15px"
+          style="margin-bottom:13px"
         >
 
           <button
@@ -506,6 +656,7 @@
 
         </div>
 
+
         <div class="actions">
 
           <button
@@ -514,6 +665,7 @@
           >
             套用設定
           </button>
+
 
           <button
             class="danger"
@@ -524,11 +676,13 @@
 
         </div>
 
+
       </div>
 
     </details>
 
   </section>
+
 
   <div class="note">
 
@@ -536,100 +690,192 @@
 
   </div>
 
+
 </div>
+
+
 
 <script>
 
-/* 預設設定 */
+
+/* =====================================================
+   預設設定
+   ===================================================== */
 
 const DEFAULT_CONFIG = {
 
   title: "庫存統計",
 
+
   items: [
+
+
+    /* 豆花 */
 
     {
       name: "豆花",
+
       locations: [
+
         "前面 三色冰箱",
+
         "小白板",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 豆漿 */
 
     {
       name: "豆漿",
+
       locations: [
+
         "前面 三色冰箱",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 三色 */
 
     {
       name: "三色",
+
       locations: [
+
         "前面 三色冰箱"
+
       ]
+
     },
+
+
+    /* 牛奶 */
 
     {
       name: "牛奶",
+
       locations: [
+
         "前面 選料冰箱 下面",
+
         "後面 廚房冰箱"
+
       ]
+
     },
+
+
+    /* 布丁 */
 
     {
       name: "布丁",
+
       locations: [
+
         "前面 選料冰箱 上面",
+
         "前面 選料冰箱 下面"
+
       ]
+
     },
+
+
+    /* 糖水 */
 
     {
       name: "糖水",
+
       locations: [
+
         "前面 三色冰箱",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 愛玉 */
 
     {
       name: "愛玉",
+
       locations: [
+
         "前面 三色冰箱",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 杏仁豆腐 */
 
     {
       name: "杏仁豆腐",
+
       locations: [
+
         "前面 選料冰箱 上面",
+
         "小白板",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 杏仁茶 */
 
     {
       name: "杏仁茶",
+
       locations: [
+
         "前面 三色冰箱",
+
         "後面 水冰箱"
+
       ]
+
     },
+
+
+    /* 粉粿 */
 
     {
       name: "粉粿",
+
       locations: [
+
         "前面 選料冰箱 下面",
+
         "後面 廚房冰箱"
+
       ]
+
     }
 
+
   ],
+
+
+  /* 冰箱溫度 */
 
   fridges: [
 
@@ -641,46 +887,79 @@ const DEFAULT_CONFIG = {
 
   ]
 
+
 };
 
 
-/* 冰箱旁邊的小字提醒 */
+
+/* =====================================================
+   冰箱旁邊小字
+   ===================================================== */
 
 const FRIDGE_NOTES = [
 
-  {
-    inline: "（檢查是否為 3°C）",
-    lines: []
-  },
 
   {
-    inline: "（檢查是否為 -7°C）",
+
+    inline:
+      "（檢查是否為 3°C）",
+
     lines: []
+
   },
 
+
   {
-    inline: "（檢查是否結冰）",
+
+    inline:
+      "（檢查是否為 -7°C）",
+
+    lines: []
+
+  },
+
+
+  {
+
+    inline:
+      "（檢查是否結冰）",
+
     lines: [
+
       "結冰：調整為 0°C",
+
       "未結冰：調整為 -1°C"
+
     ]
+
   }
+
 
 ];
 
 
-/* 儲存名稱 */
+
+/* =====================================================
+   瀏覽器儲存名稱
+   ===================================================== */
 
 const CONFIG_KEY =
   "inventory_custom_config_v3";
+
 
 const VALUES_KEY =
   "inventory_custom_values_v3";
 
 
+
 let config =
   loadConfig();
 
+
+
+/* =====================================================
+   工具
+   ===================================================== */
 
 function deepCopy(obj) {
 
@@ -691,10 +970,12 @@ function deepCopy(obj) {
 }
 
 
+
 function safeNum(value) {
 
   const n =
     Number(value);
+
 
   return Number.isFinite(n)
     ? n
@@ -702,6 +983,11 @@ function safeNum(value) {
 
 }
 
+
+
+/*
+  修正小數運算
+*/
 
 function cleanNumber(value) {
 
@@ -712,12 +998,20 @@ function cleanNumber(value) {
 }
 
 
+
+/* =====================================================
+   載入設定
+   ===================================================== */
+
 function loadConfig() {
 
   try {
 
+
     const raw =
-      localStorage.getItem(CONFIG_KEY);
+      localStorage.getItem(
+        CONFIG_KEY
+      );
 
 
     if (!raw) {
@@ -729,69 +1023,109 @@ function loadConfig() {
     }
 
 
-    return JSON.parse(raw);
+    return JSON.parse(
+      raw
+    );
 
 
   }
-  catch (e) {
+
+  catch (error) {
+
 
     return deepCopy(
       DEFAULT_CONFIG
     );
 
+
   }
 
 }
 
 
+
+/* =====================================================
+   儲存設定
+   ===================================================== */
+
 function saveConfigStorage() {
+
 
   localStorage.setItem(
 
     CONFIG_KEY,
 
-    JSON.stringify(config)
+    JSON.stringify(
+      config
+    )
 
   );
 
+
 }
 
+
+
+/* =====================================================
+   建立畫面
+   ===================================================== */
 
 function buildMain() {
 
 
   document
-    .getElementById("pageTitle")
+    .getElementById(
+      "pageTitle"
+    )
     .textContent =
-      config.title || "庫存統計";
+      config.title ||
+      "庫存統計";
 
 
   document.title =
-    config.title || "庫存統計";
+    config.title ||
+    "庫存統計";
+
+
+
+  /* ======================
+     商品
+     ====================== */
 
 
   const inventory =
-    document.getElementById("inventory");
+    document.getElementById(
+      "inventory"
+    );
 
 
   inventory.innerHTML =
     "";
 
 
+
   config.items.forEach(
+
     (item, i) => {
 
 
       const row =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       row.className =
         "item";
 
 
+
+      /* 品項名稱 */
+
       const name =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       name.className =
@@ -802,44 +1136,55 @@ function buildMain() {
         item.name;
 
 
-      name.title =
-        item.name;
 
+      /* 位置 */
 
       const inputs =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       inputs.className =
         "inputs";
 
 
+
       item.locations.forEach(
+
         (locationName, j) => {
 
 
-          const label =
-            document.createElement("label");
+          const slot =
+            document.createElement(
+              "label"
+            );
 
 
-          label.className =
+          slot.className =
             "slot";
 
 
-          const span =
-            document.createElement("span");
+
+          /* 位置名稱 */
+
+          const label =
+            document.createElement(
+              "span"
+            );
 
 
-          span.textContent =
+          label.textContent =
             locationName;
 
 
-          span.title =
-            locationName;
 
+          /* 數量 */
 
           const input =
-            document.createElement("input");
+            document.createElement(
+              "input"
+            );
 
 
           input.type =
@@ -849,6 +1194,13 @@ function buildMain() {
           input.min =
             "0";
 
+
+          /*
+            可以輸入：
+            0.5
+            1.5
+            2.25
+          */
 
           input.step =
             "any";
@@ -866,35 +1218,52 @@ function buildMain() {
             `item_${i}_${j}`;
 
 
+
           input.addEventListener(
+
             "input",
+
             () => {
+
 
               updateTotals();
 
+
               saveValues();
 
+
             }
+
           );
 
 
-          label.append(
-            span,
+
+          slot.append(
+
+            label,
+
             input
+
           );
 
 
           inputs.appendChild(
-            label
+            slot
           );
 
 
         }
+
       );
 
 
+
+      /* 合計 */
+
       const total =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       total.className =
@@ -902,13 +1271,19 @@ function buildMain() {
 
 
       total.innerHTML =
+
         `<span id="total_${i}">0</span>`;
 
 
+
       row.append(
+
         name,
+
         inputs,
+
         total
+
       );
 
 
@@ -918,64 +1293,95 @@ function buildMain() {
 
 
     }
+
   );
 
 
+
+  /* ======================
+     冰箱
+     ====================== */
+
+
   const fridges =
-    document.getElementById("fridges");
+    document.getElementById(
+      "fridges"
+    );
 
 
   fridges.innerHTML =
     "";
 
 
+
   config.fridges.forEach(
+
     (name, i) => {
 
 
       const row =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       row.className =
         "temp-row";
 
 
-      const fridgeInfo =
-        document.createElement("div");
+
+      /* 左邊資料 */
+
+      const info =
+        document.createElement(
+          "div"
+        );
 
 
-      fridgeInfo.className =
+      info.className =
         "fridge-info";
 
 
+
       const titleLine =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       titleLine.className =
         "fridge-title-line";
 
 
-      const nameElement =
-        document.createElement("span");
+
+      /* 冰箱名稱 */
+
+      const fridgeName =
+        document.createElement(
+          "span"
+        );
 
 
-      nameElement.className =
+      fridgeName.className =
         "fridge-name";
 
 
-      nameElement.textContent =
+      fridgeName.textContent =
         name;
 
 
+
       titleLine.appendChild(
-        nameElement
+        fridgeName
       );
 
 
+
+      /* 小字 */
+
       const noteData =
         FRIDGE_NOTES[i];
+
 
 
       if (
@@ -983,50 +1389,71 @@ function buildMain() {
         noteData.inline
       ) {
 
-        const inlineNote =
-          document.createElement("span");
+
+        const note =
+          document.createElement(
+            "span"
+          );
 
 
-        inlineNote.className =
+        note.className =
           "fridge-note-inline";
 
 
-        inlineNote.textContent =
+        note.textContent =
           noteData.inline;
 
 
         titleLine.appendChild(
-          inlineNote
+          note
         );
+
 
       }
 
 
-      fridgeInfo.appendChild(
+
+      info.appendChild(
         titleLine
       );
 
 
+
+      /* 第三台冰箱上下小字 */
+
       if (
+
         noteData &&
-        Array.isArray(noteData.lines) &&
+
+        Array.isArray(
+          noteData.lines
+        ) &&
+
         noteData.lines.length > 0
+
       ) {
 
+
         const stack =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
 
         stack.className =
           "fridge-note-stack";
 
 
+
         noteData.lines.forEach(
+
           text => {
 
 
             const line =
-              document.createElement("div");
+              document.createElement(
+                "div"
+              );
 
 
             line.textContent =
@@ -1039,71 +1466,96 @@ function buildMain() {
 
 
           }
+
         );
 
 
-        fridgeInfo.appendChild(
+        info.appendChild(
           stack
         );
+
 
       }
 
 
+
+      /* 溫度框 */
+
       const tempBox =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       tempBox.className =
         "temp-input";
 
 
-      const input =
-        document.createElement("input");
+
+      const temp =
+        document.createElement(
+          "input"
+        );
 
 
-      input.id =
+      temp.id =
         `temp_${i}`;
 
 
-      input.type =
+      temp.type =
         "number";
 
 
-      input.step =
+      temp.step =
         "0.1";
 
 
-      input.inputMode =
+      temp.inputMode =
         "decimal";
 
 
-      input.placeholder =
+      temp.placeholder =
         "0";
 
 
+
       const degree =
-        document.createElement("span");
+        document.createElement(
+          "span"
+        );
 
 
       degree.textContent =
         "°C";
 
 
-      input.addEventListener(
+
+      temp.addEventListener(
+
         "input",
+
         saveValues
+
       );
+
 
 
       tempBox.append(
-        input,
+
+        temp,
+
         degree
+
       );
 
 
+
       row.append(
-        fridgeInfo,
+
+        info,
+
         tempBox
+
       );
 
 
@@ -1113,16 +1565,28 @@ function buildMain() {
 
 
     }
+
   );
 
+
+
+  /*
+    恢復上一次資料
+  */
 
   loadValues();
 
 
   updateTotals();
 
+
 }
 
+
+
+/* =====================================================
+   取得商品數量
+   ===================================================== */
 
 function getItemValues(i) {
 
@@ -1130,36 +1594,52 @@ function getItemValues(i) {
   return config.items[i]
     .locations
     .map(
+
       (_, j) => {
 
 
-        const el =
+        const element =
           document.getElementById(
+
             `item_${i}_${j}`
+
           );
 
 
-        return el
-          ? safeNum(el.value)
+        return element
+
+          ? safeNum(
+              element.value
+            )
+
           : 0;
 
 
       }
+
     );
 
 }
 
 
+
+/* =====================================================
+   更新合計
+   ===================================================== */
+
 function updateTotals() {
 
 
   config.items.forEach(
+
     (item, i) => {
 
 
       const totalElement =
         document.getElementById(
+
           `total_${i}`
+
         );
 
 
@@ -1170,26 +1650,38 @@ function updateTotals() {
       }
 
 
+
       const total =
 
         getItemValues(i)
           .reduce(
+
             (a, b) =>
               a + b,
 
             0
+
           );
 
 
+
       totalElement.textContent =
-        cleanNumber(total);
+        cleanNumber(
+          total
+        );
 
 
     }
+
   );
 
 }
 
+
+
+/* =====================================================
+   儲存數量、溫度
+   ===================================================== */
 
 function saveValues() {
 
@@ -1200,44 +1692,62 @@ function saveValues() {
     items:
 
       config.items.map(
+
         (item, i) =>
           getItemValues(i)
+
       ),
 
 
     temps:
 
       config.fridges.map(
+
         (_, i) => {
 
 
-          const el =
+          const element =
             document.getElementById(
+
               `temp_${i}`
+
             );
 
 
-          return el
-            ? el.value
+          return element
+
+            ? element.value
+
             : "";
 
 
         }
+
       )
 
+
   };
+
 
 
   localStorage.setItem(
 
     VALUES_KEY,
 
-    JSON.stringify(data)
+    JSON.stringify(
+      data
+    )
 
   );
 
+
 }
 
+
+
+/* =====================================================
+   載入數量、溫度
+   ===================================================== */
 
 function loadValues() {
 
@@ -1258,22 +1768,36 @@ function loadValues() {
     }
 
 
-    const data =
-      JSON.parse(raw);
 
+    const data =
+      JSON.parse(
+        raw
+      );
+
+
+
+    /* 商品 */
 
     if (
-      Array.isArray(data.items)
+      Array.isArray(
+        data.items
+      )
     ) {
 
 
       data.items.forEach(
+
         (values, i) => {
 
 
           if (
+
             !config.items[i] ||
-            !Array.isArray(values)
+
+            !Array.isArray(
+              values
+            )
+
           ) {
 
             return;
@@ -1281,80 +1805,112 @@ function loadValues() {
           }
 
 
+
           values.forEach(
+
             (value, j) => {
 
 
-              const el =
+              const element =
                 document.getElementById(
+
                   `item_${i}_${j}`
+
                 );
 
 
               if (
-                el &&
-                value !== "" &&
+
+                element &&
+
                 value !== undefined &&
+
                 value !== null
+
               ) {
 
-                el.value =
+
+                element.value =
                   value;
+
 
               }
 
 
             }
+
           );
 
 
         }
+
       );
+
 
     }
 
 
+
+    /* 溫度 */
+
     if (
-      Array.isArray(data.temps)
+      Array.isArray(
+        data.temps
+      )
     ) {
 
 
       data.temps.forEach(
+
         (value, i) => {
 
 
-          const el =
+          const element =
             document.getElementById(
+
               `temp_${i}`
+
             );
 
 
-          if (el) {
+          if (element) {
 
-            el.value =
+
+            element.value =
               value ?? "";
+
 
           }
 
 
         }
+
       );
+
 
     }
 
 
   }
-  catch (e) {
+
+  catch (error) {
+
 
     console.log(
-      "讀取資料失敗",
-      e
+      error
     );
+
 
   }
 
+
 }
 
+
+
+/* =====================================================
+   複製文字
+   ===================================================== */
 
 function makeCopyText() {
 
@@ -1363,7 +1919,9 @@ function makeCopyText() {
     [];
 
 
+
   config.items.forEach(
+
     (item, i) => {
 
 
@@ -1371,10 +1929,12 @@ function makeCopyText() {
 
         getItemValues(i)
           .reduce(
+
             (a, b) =>
               a + b,
 
             0
+
           );
 
 
@@ -1386,7 +1946,9 @@ function makeCopyText() {
 
 
     }
+
   );
+
 
 
   lines.push(
@@ -1399,20 +1961,26 @@ function makeCopyText() {
   );
 
 
+
   config.fridges.forEach(
+
     (name, i) => {
 
 
-      const el =
+      const element =
         document.getElementById(
+
           `temp_${i}`
+
         );
 
 
       const value =
-        el
-          ? el.value
+
+        element
+          ? element.value
           : "";
+
 
 
       lines.push(
@@ -1427,15 +1995,23 @@ function makeCopyText() {
 
 
     }
+
   );
+
 
 
   return lines.join(
     "\n"
   );
 
+
 }
 
+
+
+/* =====================================================
+   執行複製
+   ===================================================== */
 
 async function copyText() {
 
@@ -1444,15 +2020,19 @@ async function copyText() {
     makeCopyText();
 
 
+
   try {
 
 
     await navigator.clipboard
-      .writeText(text);
+      .writeText(
+        text
+      );
 
 
   }
-  catch (e) {
+
+  catch (error) {
 
 
     const area =
@@ -1466,7 +2046,9 @@ async function copyText() {
 
 
     document.body
-      .appendChild(area);
+      .appendChild(
+        area
+      );
 
 
     area.select();
@@ -1483,19 +2065,28 @@ async function copyText() {
   }
 
 
+
   showMsg(
     "已複製，可以直接貼到 LINE。"
   );
 
+
 }
 
+
+
+/* =====================================================
+   清除資料
+   ===================================================== */
 
 function clearValues() {
 
 
   const yes =
     confirm(
+
       "確定要清除所有庫存數量與冰箱溫度嗎？\n\n品項名稱與位置設定不會被刪除。"
+
     );
 
 
@@ -1506,46 +2097,63 @@ function clearValues() {
   }
 
 
+
   localStorage.removeItem(
     VALUES_KEY
   );
 
 
+
   document
     .querySelectorAll(
+
       '#inventory input[type="number"], #fridges input[type="number"]'
+
     )
     .forEach(
-      el => {
 
-        el.value =
+      element => {
+
+
+        element.value =
           "";
 
+
       }
+
     );
 
 
+
   updateTotals();
+
 
 
   showMsg(
     "庫存數量與溫度已清除。"
   );
 
+
 }
 
+
+
+/* =====================================================
+   提示
+   ===================================================== */
 
 function showMsg(text) {
 
 
-  const el =
+  const element =
     document.getElementById(
       "msg"
     );
 
 
-  el.textContent =
+  element.textContent =
     text;
+
 
 
   clearTimeout(
@@ -1553,20 +2161,31 @@ function showMsg(text) {
   );
 
 
+
   window.messageTimer =
     setTimeout(
+
       () => {
 
-        el.textContent =
+
+        element.textContent =
           "";
+
 
       },
 
-      2600
+      2500
+
     );
+
 
 }
 
+
+
+/* =====================================================
+   建立編輯區
+   ===================================================== */
 
 function buildConfigEditor() {
 
@@ -1579,6 +2198,7 @@ function buildConfigEditor() {
       config.title || "";
 
 
+
   const box =
     document.getElementById(
       "configItems"
@@ -1589,7 +2209,9 @@ function buildConfigEditor() {
     "";
 
 
+
   config.items.forEach(
+
     (item, i) => {
 
 
@@ -1603,6 +2225,9 @@ function buildConfigEditor() {
         "config-item";
 
 
+
+      /* 品項名稱 */
+
       const top =
         document.createElement(
           "div"
@@ -1613,26 +2238,28 @@ function buildConfigEditor() {
         "config-top";
 
 
-      const nameInput =
+
+      const name =
         document.createElement(
           "input"
         );
 
 
-      nameInput.type =
+      name.type =
         "text";
 
 
-      nameInput.value =
+      name.value =
         item.name;
 
 
-      nameInput.dataset.role =
+      name.dataset.role =
         "item-name";
 
 
-      nameInput.dataset.i =
+      name.dataset.i =
         i;
+
 
 
       const deleteItem =
@@ -1647,6 +2274,7 @@ function buildConfigEditor() {
 
       deleteItem.textContent =
         "刪除品項";
+
 
 
       deleteItem.onclick =
@@ -1668,11 +2296,18 @@ function buildConfigEditor() {
         };
 
 
+
       top.append(
-        nameInput,
+
+        name,
+
         deleteItem
+
       );
 
+
+
+      /* 位置 */
 
       const locationList =
         document.createElement(
@@ -1684,7 +2319,9 @@ function buildConfigEditor() {
         "loc-list";
 
 
+
       item.locations.forEach(
+
         (locationName, j) => {
 
 
@@ -1696,6 +2333,7 @@ function buildConfigEditor() {
 
           row.className =
             "loc-row";
+
 
 
           const input =
@@ -1724,9 +2362,6 @@ function buildConfigEditor() {
             j;
 
 
-          input.placeholder =
-            "例如：小冰箱";
-
 
           const remove =
             document.createElement(
@@ -1742,6 +2377,7 @@ function buildConfigEditor() {
             "刪除位置";
 
 
+
           remove.onclick =
             () => {
 
@@ -1749,10 +2385,13 @@ function buildConfigEditor() {
               readEditorIntoConfig();
 
 
+
               if (
+
                 config.items[i]
                   .locations
                   .length <= 1
+
               ) {
 
 
@@ -1766,11 +2405,15 @@ function buildConfigEditor() {
               }
 
 
+
               config.items[i]
                 .locations
                 .splice(
+
                   j,
+
                   1
+
                 );
 
 
@@ -1780,9 +2423,13 @@ function buildConfigEditor() {
             };
 
 
+
           row.append(
+
             input,
+
             remove
+
           );
 
 
@@ -1792,8 +2439,12 @@ function buildConfigEditor() {
 
 
         }
+
       );
 
+
+
+      /* 增加位置 */
 
       const addLocation =
         document.createElement(
@@ -1806,11 +2457,12 @@ function buildConfigEditor() {
 
 
       addLocation.style.marginTop =
-        "7px";
+        "6px";
 
 
       addLocation.textContent =
         "＋ 增加位置";
+
 
 
       addLocation.onclick =
@@ -1820,6 +2472,7 @@ function buildConfigEditor() {
           readEditorIntoConfig();
 
 
+
           const number =
 
             config.items[i]
@@ -1827,11 +2480,16 @@ function buildConfigEditor() {
               .length + 1;
 
 
+
           config.items[i]
             .locations
             .push(
-              "位置" + number
+
+              "位置" +
+              number
+
             );
+
 
 
           buildConfigEditor();
@@ -1840,10 +2498,15 @@ function buildConfigEditor() {
         };
 
 
+
       card.append(
+
         top,
+
         locationList,
+
         addLocation
+
       );
 
 
@@ -1853,8 +2516,12 @@ function buildConfigEditor() {
 
 
     }
+
   );
 
+
+
+  /* 冰箱名稱 */
 
   const fridgeBox =
     document.getElementById(
@@ -1866,7 +2533,9 @@ function buildConfigEditor() {
     "";
 
 
+
   config.fridges.forEach(
+
     (name, i) => {
 
 
@@ -1878,6 +2547,7 @@ function buildConfigEditor() {
 
       row.className =
         "fridge-config";
+
 
 
       const input =
@@ -1902,21 +2572,23 @@ function buildConfigEditor() {
         i;
 
 
-      const deleteButton =
+
+      const remove =
         document.createElement(
           "button"
         );
 
 
-      deleteButton.className =
+      remove.className =
         "danger small";
 
 
-      deleteButton.textContent =
+      remove.textContent =
         "刪除";
 
 
-      deleteButton.onclick =
+
+      remove.onclick =
         () => {
 
 
@@ -1924,8 +2596,11 @@ function buildConfigEditor() {
 
 
           config.fridges.splice(
+
             i,
+
             1
+
           );
 
 
@@ -1935,9 +2610,13 @@ function buildConfigEditor() {
         };
 
 
+
       row.append(
+
         input,
-        deleteButton
+
+        remove
+
       );
 
 
@@ -1947,10 +2626,17 @@ function buildConfigEditor() {
 
 
     }
+
   );
+
 
 }
 
+
+
+/* =====================================================
+   讀取設定編輯內容
+   ===================================================== */
 
 function readEditorIntoConfig() {
 
@@ -1967,17 +2653,19 @@ function readEditorIntoConfig() {
     || "庫存統計";
 
 
+
   document
     .querySelectorAll(
       '[data-role="item-name"]'
     )
     .forEach(
-      el => {
+
+      element => {
 
 
         const i =
           Number(
-            el.dataset.i
+            element.dataset.i
           );
 
 
@@ -1988,16 +2676,20 @@ function readEditorIntoConfig() {
 
           config.items[i].name =
 
-            el.value.trim()
+            element.value.trim()
 
-            || `品項${i + 1}`;
+            ||
+
+            `品項${i + 1}`;
 
 
         }
 
 
       }
+
     );
+
 
 
   document
@@ -2005,41 +2697,50 @@ function readEditorIntoConfig() {
       '[data-role="loc-name"]'
     )
     .forEach(
-      el => {
+
+      element => {
 
 
         const i =
           Number(
-            el.dataset.i
+            element.dataset.i
           );
 
 
         const j =
           Number(
-            el.dataset.j
+            element.dataset.j
           );
 
 
         if (
+
           config.items[i] &&
+
           config.items[i]
-            .locations[j] !== undefined
+            .locations[j]
+            !== undefined
+
         ) {
 
 
           config.items[i]
             .locations[j] =
 
-              el.value.trim()
+              element.value.trim()
 
-              || `位置${j + 1}`;
+              ||
+
+              `位置${j + 1}`;
 
 
         }
 
 
       }
+
     );
+
 
 
   document
@@ -2047,35 +2748,46 @@ function readEditorIntoConfig() {
       '[data-role="fridge-name"]'
     )
     .forEach(
-      el => {
+
+      element => {
 
 
         const i =
           Number(
-            el.dataset.i
+            element.dataset.i
           );
 
 
         if (
-          config.fridges[i] !== undefined
+          config.fridges[i]
+          !== undefined
         ) {
 
 
           config.fridges[i] =
 
-            el.value.trim()
+            element.value.trim()
 
-            || `冰箱${i + 1}`;
+            ||
+
+            `冰箱${i + 1}`;
 
 
         }
 
 
       }
+
     );
+
 
 }
 
+
+
+/* =====================================================
+   套用設定
+   ===================================================== */
 
 function applyConfig() {
 
@@ -2099,8 +2811,14 @@ function applyConfig() {
     "設定已套用。"
   );
 
+
 }
 
+
+
+/* =====================================================
+   新增商品
+   ===================================================== */
 
 function addItem() {
 
@@ -2108,27 +2826,39 @@ function addItem() {
   readEditorIntoConfig();
 
 
+
   config.items.push({
 
     name:
+
       `新商品${config.items.length + 1}`,
 
     locations: [
+
       "位置1"
+
     ]
 
   });
 
 
+
   buildConfigEditor();
+
 
 }
 
+
+
+/* =====================================================
+   新增冰箱
+   ===================================================== */
 
 function addFridge() {
 
 
   readEditorIntoConfig();
+
 
 
   config.fridges.push(
@@ -2138,17 +2868,26 @@ function addFridge() {
   );
 
 
+
   buildConfigEditor();
+
 
 }
 
+
+
+/* =====================================================
+   恢復預設
+   ===================================================== */
 
 function resetConfig() {
 
 
   const yes =
     confirm(
+
       "確定要恢復預設設定嗎？\n\n品項、位置、數量與溫度都會恢復。"
+
     );
 
 
@@ -2159,10 +2898,12 @@ function resetConfig() {
   }
 
 
+
   config =
     deepCopy(
       DEFAULT_CONFIG
     );
+
 
 
   localStorage.removeItem(
@@ -2175,26 +2916,37 @@ function resetConfig() {
   );
 
 
+
   buildMain();
 
 
   buildConfigEditor();
 
 
+
   showMsg(
     "已恢復預設設定。"
   );
 
+
 }
 
+
+
+/* =====================================================
+   按鈕事件
+   ===================================================== */
 
 document
   .getElementById(
     "copyBtn"
   )
   .addEventListener(
+
     "click",
+
     copyText
+
   );
 
 
@@ -2203,8 +2955,11 @@ document
     "clearValuesBtn"
   )
   .addEventListener(
+
     "click",
+
     clearValues
+
   );
 
 
@@ -2213,8 +2968,11 @@ document
     "saveConfigBtn"
   )
   .addEventListener(
+
     "click",
+
     applyConfig
+
   );
 
 
@@ -2223,8 +2981,11 @@ document
     "addItemBtn"
   )
   .addEventListener(
+
     "click",
+
     addItem
+
   );
 
 
@@ -2233,8 +2994,11 @@ document
     "addFridgeBtn"
   )
   .addEventListener(
+
     "click",
+
     addFridge
+
   );
 
 
@@ -2243,17 +3007,39 @@ document
     "resetConfigBtn"
   )
   .addEventListener(
+
     "click",
+
     resetConfig
+
   );
 
 
+
+/* =====================================================
+   啟動
+   ===================================================== */
+
+/*
+  這裡沒有自動清除資料。
+
+  所以重新整理、
+  關掉網頁再打開，
+  庫存與溫度都會保留。
+
+  只有按「清除資料」
+  才會清掉數量與溫度。
+*/
+
 buildMain();
+
 
 buildConfigEditor();
 
 
 </script>
 
+
 </body>
+
 </html>
